@@ -1,0 +1,17 @@
+.textfield-oneline{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tf-2inrow{
+    width: 40%;
+}
+
+.tf-1inrow {
+    width: 90%;
+}
+
+.gender-toggle-group{
+    margin-right: 8px;
+}
