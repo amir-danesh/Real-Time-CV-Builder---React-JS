@@ -11,11 +11,20 @@ function ScreenEditor(props) {
     <Box className="screen-editor">
       <Grid>
         <h2>Basic Information</h2>
-        <BiographyBasicInfo props={props}/>
+        <BiographyBasicInfo
+          userData={props.userData.basicInfo}
+          setUserData={props.setUserData}
+        />
         <h2>Contact Information</h2>
-        <BiographyContactInfo />
+        <BiographyContactInfo
+          userData={props.userData.contactInfo}
+          setUserData={props.setUserData}
+        />
         <h2>Summary</h2>
-        <Summary />
+        <Summary
+          userData={props.userData.summary}
+          setUserData={props.setUserData}
+        />
       </Grid>
     </Box>
   );

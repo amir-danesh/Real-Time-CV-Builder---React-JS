@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@mui/material/TextField";
 import "./Biography.css";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -8,47 +8,42 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 
-
 function BiographyBasicInfo(props) {
-  const [genderAlignment, setGenderAlignment] = useState("");
-  const [maritalStatusAlignment, setmaritalStatusAlignment] = useState("");
-  const [militaryStatus, setMilitaryStatus] = useState("");
-  const [yearDOB, setYearDOB] = useState("")
-  const [monthDOB, setMonthDOB] = useState("")
-  const [dayDOB, setDayDOB] = useState("");
+  const handleBasicInfoChange = (value, field) => {
+    props.setUserData((prevState) => {
+      return {
+        ...prevState,
+        basicInfo: { ...prevState.basicInfo, [field]: value },
+      };
+    });
+  };
 
-  const years = []
+  const years = [];
 
-  for (let i=2022;i>1900;i--){
+  for (let i = 2022; i > 1900; i--) {
     years.push(i);
   }
 
-  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-  const days = []
+  const days = [];
 
   for (let i = 1; i < 32; i++) {
     days.push(i);
   }
-
-  const handleGenderSelection = (event, newAlignment) => {
-    setGenderAlignment(newAlignment);
-  };
-  const handleMaritalStatusSelection = (event, newAlignment) => {
-    setmaritalStatusAlignment(newAlignment);
-  };
-  const handleMilitaryServicesChange = (event) => {
-    setMilitaryStatus(event.target.value);
-  };
-  const handleYearDOBChange = (event) => {
-    setYearDOB(event.target.value);
-  };
-  const handleMonthDOBChange = (event) => {
-    setMonthDOB(event.target.value);
-  };
-  const handleDayDOBChange = (event) => {
-    setDayDOB(event.target.value);
-  };
 
   return (
     <div>
@@ -59,6 +54,10 @@ function BiographyBasicInfo(props) {
           margin="dense"
           size="small"
           className="tf-2inrow"
+          value={props.userData.firstName}
+          onChange={(event) => {
+            handleBasicInfoChange(event.target.value, "firstName");
+          }}
         />
         <TextField
           variant="outlined"
@@ -66,6 +65,10 @@ function BiographyBasicInfo(props) {
           margin="dense"
           size="small"
           className="tf-2inrow"
+          value={props.userData.lastName}
+          onChange={(event) => {
+            handleBasicInfoChange(event.target.value, "lastName");
+          }}
         />
       </div>
       <TextField
@@ -75,6 +78,10 @@ function BiographyBasicInfo(props) {
         margin="dense"
         size="small"
         className="tf-1inrow"
+        value={props.userData.jobTitle}
+        onChange={(event) => {
+          handleBasicInfoChange(event.target.value, "jobTitle");
+        }}
       />
       <div
         style={{
@@ -86,10 +93,12 @@ function BiographyBasicInfo(props) {
           <InputLabel>Gender</InputLabel>
           <ToggleButtonGroup
             color="primary"
-            value={genderAlignment}
             exclusive
-            onChange={handleGenderSelection}
             className="gender-toggle-group"
+            value={props.userData.gender}
+            onChange={(event, newGender) => {
+              handleBasicInfoChange(newGender, "gender");
+            }}
           >
             <ToggleButton value="Male">Male</ToggleButton>
             <ToggleButton value="Female">Female</ToggleButton>
@@ -101,9 +110,11 @@ function BiographyBasicInfo(props) {
           <InputLabel>Marital Status</InputLabel>
           <ToggleButtonGroup
             color="primary"
-            value={maritalStatusAlignment}
             exclusive
-            onChange={handleMaritalStatusSelection}
+            value={props.userData.maritalStatus}
+            onChange={(event, newMaritalStatus) => {
+              handleBasicInfoChange(newMaritalStatus, "maritalStatus");
+            }}
           >
             <ToggleButton value="Married">Married</ToggleButton>
             <ToggleButton value="Single">Single</ToggleButton>
@@ -114,7 +125,7 @@ function BiographyBasicInfo(props) {
       <div
         style={{
           marginTop: "8px",
-          alignItems: "end"
+          alignItems: "end",
         }}
         className="textfield-oneline"
       >
@@ -125,9 +136,11 @@ function BiographyBasicInfo(props) {
             </InputLabel>
             <Select
               labelId="military-selection"
-              value={militaryStatus}
               label="Military Services Status"
-              onChange={handleMilitaryServicesChange}
+              value={props.userData.militaryStatus}
+              onChange={(event) => {
+                handleBasicInfoChange(event.target.value, "militaryStatus");
+              }}
             >
               <MenuItem value="Educational exemption">
                 Educational exemption
@@ -138,19 +151,21 @@ function BiographyBasicInfo(props) {
           </FormControl>
         </div>
         <div>
-          <InputLabel>Gender</InputLabel>
+          <InputLabel id="dob-inputlabel">Date of Birth</InputLabel>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div style={{ width: "100px" }}>
               <FormControl fullWidth>
                 <InputLabel id="year-dob">Year</InputLabel>
                 <Select
                   labelId="year-dob"
-                  value={yearDOB}
                   label="Date Of Birth"
-                  onChange={handleYearDOBChange}
+                  value={props.userData.yearDOB}
+                  onChange={(event) => {
+                    handleBasicInfoChange(event.target.value, "yearDOB");
+                  }}
                 >
-                  {years.map((year) => (
-                    <MenuItem value={year}>{year}</MenuItem>
+                  {years.map((year,index) => (
+                    <MenuItem value={year} key={index}>{year}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -160,12 +175,14 @@ function BiographyBasicInfo(props) {
                 <InputLabel id="month-dob">Month</InputLabel>
                 <Select
                   labelId="month-dob"
-                  value={monthDOB}
                   label="Date Of Birth"
-                  onChange={handleMonthDOBChange}
+                  value={props.userData.monthDOB}
+                  onChange={(event) => {
+                    handleBasicInfoChange(event.target.value, "monthDOB");
+                  }}
                 >
-                  {months.map((month) => (
-                    <MenuItem value={month}>{month}</MenuItem>
+                  {months.map((month,index) => (
+                    <MenuItem value={month} key={index}>{month}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -175,12 +192,14 @@ function BiographyBasicInfo(props) {
                 <InputLabel id="day-dob">Day</InputLabel>
                 <Select
                   labelId="day-dob"
-                  value={dayDOB}
                   label="Date Of Birth"
-                  onChange={handleDayDOBChange}
+                  value={props.userData.dayDOB}
+                  onChange={(event) => {
+                    handleBasicInfoChange(event.target.value, "dayDOB");
+                  }}
                 >
-                  {days.map((day) => (
-                    <MenuItem value={day}>{day}</MenuItem>
+                  {days.map((day, index) => (
+                    <MenuItem value={day} key={index}>{day}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
