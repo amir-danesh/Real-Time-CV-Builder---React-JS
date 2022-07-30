@@ -10,9 +10,11 @@ function Summary(props) {
   const [progress, setProgress] = React.useState(0);
   const [openSummarySnackBar, setOpenSummarySnackBar] = useState(false);
   const summaryCharacterLimit = 200;
+  const summaryCharacterUnderProficient = 100;
+  const summaryCharacterOverProficient = 180;
   const snackBarMessage =
     "Your summary should have less than " +
-    props.summaryCharacterLimit +
+    summaryCharacterLimit +
     " characters.";
 
   const handleSummaryChange = (value, field) => {
@@ -29,9 +31,12 @@ function Summary(props) {
   };
 
   const handleSummary = (event) => {
+    // THIS WAS FOR KEEPING THE USER FROM WRITING MORE THAN LIMIT. HOWEVER THIS APPROACH IS CHANGED AND THE LIMIT SHOULD BE HANDLED IN THE PREVIEW AND WHEN THE CV IS SUBMITTED.
+
     if (props.userData.summary.length >= summaryCharacterLimit) {
       handleSummarySnackBar(true);
-      handleSummaryChange(props.userData.summary.slice(0, -1), "summary");
+      handleSummaryChange(event.target.value, "summary");
+      //   handleSummaryChange(props.userData.summary.slice(0, -1), "summary");
     } else {
       handleSummaryChange(event.target.value, "summary");
     }
@@ -45,9 +50,11 @@ function Summary(props) {
   };
 
   useEffect(() => {
-    setProgress(
-      parseInt((props.userData.summary.length / summaryCharacterLimit) * 100)
-    );
+    if (props.userData.summary.length <= summaryCharacterLimit) {
+      setProgress(
+        parseInt((props.userData.summary.length / summaryCharacterLimit) * 100)
+      );
+    }
   }, [props.userData.summary]);
 
   const LinearProgressWithLabel = () => {
@@ -61,7 +68,22 @@ function Summary(props) {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ width: "90%", marginTop: "10px" }}>
+        <Box
+          sx={{ width: "90%", marginTop: "10px" }}
+          className={
+            props.userData.summary.length < summaryCharacterUnderProficient
+              ? "forBarColorYellow forBarColorYellowHolder"
+              : props.userData.summary.length >
+                  summaryCharacterUnderProficient &&
+                props.userData.summary.length < summaryCharacterOverProficient
+              ? "forBarColorGreen"
+              : props.userData.summary.length >
+                  summaryCharacterOverProficient &&
+                props.userData.summary.length <= summaryCharacterLimit
+              ? "forBarColorYellow forBarColorYellowHolder"
+              : "forBarColorRed"
+          }
+        >
           <LinearProgress variant="determinate" value={progress} />
         </Box>
         <Box sx={{ minWidth: 35, marginTop: "10px" }}>

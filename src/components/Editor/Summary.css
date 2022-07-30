@@ -6,3 +6,18 @@
 .summary div {
     height: 180px;
 }
+
+.forBarColorRed span span{
+    background-color: red;
+}
+
+.forBarColorYellow span span {
+    background-color: #e9e940;
+}
+.forBarColorYellowHolder span {
+    background-color: rgb(182, 246, 7);
+}
+
+.forBarColorGreen span span {
+    background-color: green;
+}
