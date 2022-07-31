@@ -70,7 +70,7 @@ function Summary(props) {
       >
         <Box
           sx={{ width: "90%", marginTop: "10px" }}
-          className={
+          className={props.userData.summary.length === 0 ? "" :
             props.userData.summary.length < summaryCharacterUnderProficient
               ? "forBarColorYellow forBarColorYellowHolder"
               : props.userData.summary.length >
