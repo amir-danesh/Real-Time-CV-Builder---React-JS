@@ -15,30 +15,27 @@ function Main() {
       gender: "",
       maritalStatus: "",
       militaryStatus: "",
-      yearDOB: 2022,
-      monthDOB: "January",
-      dayDOB: 1,
+      yearDOB: "", // Dont delete value
+      monthDOB: "", // Dont delete value
+      dayDOB: "", // Dont delete value
     },
     contactInfo: {
       email: "",
       phoneNumber: "",
       homeNumber: "",
       website: "",
-      country: {label:"United States", value:"US"},
+      country: null, // Dont delete value
       city: "",
     },
     summary: {
-      summary: ""
+      summary: "",
     },
   });
 
   return (
     <Box className="all-content">
-      <ScreenEditor
-        userData={userData}
-        setUserData={setUserData}
-      />
-      <ScreenViewer />
+      <ScreenEditor userData={userData} setUserData={setUserData} />
+      <ScreenViewer userData={userData} />
     </Box>
   );
 }

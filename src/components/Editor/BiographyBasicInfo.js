@@ -164,8 +164,11 @@ function BiographyBasicInfo(props) {
                     handleBasicInfoChange(event.target.value, "yearDOB");
                   }}
                 >
-                  {years.map((year,index) => (
-                    <MenuItem value={year} key={index}>{year}</MenuItem>
+                  <MenuItem value={""}></MenuItem>
+                  {years.map((year, index) => (
+                    <MenuItem value={year} key={index}>
+                      {year}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -181,8 +184,11 @@ function BiographyBasicInfo(props) {
                     handleBasicInfoChange(event.target.value, "monthDOB");
                   }}
                 >
-                  {months.map((month,index) => (
-                    <MenuItem value={month} key={index}>{month}</MenuItem>
+                  <MenuItem value={""}></MenuItem>
+                  {months.map((month, index) => (
+                    <MenuItem value={month} key={index}>
+                      {month}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -198,8 +204,11 @@ function BiographyBasicInfo(props) {
                     handleBasicInfoChange(event.target.value, "dayDOB");
                   }}
                 >
+                  <MenuItem value={""}></MenuItem>
                   {days.map((day, index) => (
-                    <MenuItem value={day} key={index}>{day}</MenuItem>
+                    <MenuItem value={day} key={index}>
+                      {day}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
