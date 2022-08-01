@@ -1,0 +1,43 @@
+.root{
+    margin: 20px;
+}
+
+.fullname {
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.jobtitle{
+    text-align: left;
+    margin-top: 0px;
+}
+
+.li-basicinfo{
+    text-align: left;
+    font-size: 14px;
+}
+
+.ul-reduce-padding{
+    padding-left: 0px;
+}
+
+.contactinfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.contactinfo .left-divs div{
+    text-align: left;
+}
+
+.contactinfo .right-divs div{
+    text-align: right;
+}
+
+.section-title {
+    text-align: left;
+    border-style: none none solid none;
+    padding-bottom: 2px;
+    margin-bottom: 5px;
+}
